@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAMPATI Responsive Platform v5.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 99px; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen font-sans antialiased selection:bg-indigo-500 selection:text-white">
+
+    <!-- TOPBAR RESPONSIF -->
+    <header class="bg-slate-950/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 px-4 py-3 md:py-4">
+        <div class="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <div class="p-2.5 bg-gradient-to-br from-rose-500 via-purple-600 to-indigo-600 rounded-xl text-white shadow-lg shrink-0">
+                    <i class="fa-solid fa-mobile-screen-button text-base md:text-lg"></i>
+                </div>
+                <div>
+                    <h1 class="text-base md:text-lg font-black tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400">SAMPATI CORE v5.0</h1>
+                    <p class="text-[9px] md:text-[10px] text-emerald-400 font-mono flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Multi-Device Status: <span class="font-bold">HP, TABLET, PC READY</span>
+                    </p>
+                </div>
+            </div>
+            <button id="btn-logout" onclick="kembaliKeHubPusat()" class="hidden w-full sm:w-auto bg-slate-900 hover:bg-rose-950/30 hover:text-rose-400 border border-slate-800 text-slate-400 text-xs font-mono py-2.5 px-4 rounded-xl transition-all justify-center items-center gap-2 active:scale-95">
+                <i class="fa-solid fa-arrow-left"></i> Kembali ke Hub Institusi
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="max-w-5xl mx-auto p-4 md:py-6 grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
+        
+        <!-- LEFT & CENTER: WORKSPACE INTERACTION (Loket Kerja Utama) -->
+        <div class="lg:col-span-2 space-y-4 md:space-y-6">
+            
+            <!-- HUB OTORITAS INSTITUSI -->
+            <section id="hub-institusi" class="bg-slate-950 border border-slate-800 rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-2xl space-y-4">
+                <div class="text-center space-y-1 mb-2">
+                    <h2 class="text-base md:text-lg font-bold text-white tracking-tight">Hub Pusat Interkoneksi</h2>
+                    <p class="text-[11px] md:text-xs text-slate-400 font-mono">Privasi Mutlak. Saldo tidak dipajang di area umum demi keamanan data.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+                    <!-- 1. REGISTRASI SENTRAL -->
+                    <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl md:rounded-2xl space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-indigo-400 mb-1">
+                                <i class="fa-solid fa-address-card text-xs"></i>
+                                <h4 class="text-[11px] font-mono font-bold uppercase tracking-wide">1. Pendaftaran Warga</h4>
+                            </div>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">Daftarkan NIK warga baru secara aman langsung ke dalam core memory database.</p>
+                        </div>
+                        <button onclick="bukaLoket('admin')" class="w-full mt-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-mono font-bold py-2.5 rounded-xl transition-all active:scale-95">MASUK MODE ADMIN</button>
+                    </div>
+
+                    <!-- 2. KIOS MANDIRI WARGA -->
+                    <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl md:rounded-2xl space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-emerald-400 mb-1">
+                                <i class="fa-solid fa-wallet text-xs"></i>
+                                <h4 class="text-[11px] font-mono font-bold uppercase tracking-wide">2. Kios Mandiri Warga</h4>
+                            </div>
+                            <p class="text-[11px] text-slate-400 leading-relaxed">Warga wajib memasukkan NIK secara mandiri untuk mengintip sisa saldo poin.</p>
+                        </div>
+                        <button onclick="bukaLoket('warga')" class="w-full mt-3 bg-emerald-600/10 hover:bg-emerald-600 border border-emerald-500/20 text-emerald-400 hover:text-white text-xs font-mono font-bold py-2.5 rounded-xl transition-all active:scale-95">BUKA KIOS WARGA</button>
+                    </div>
+
+                    <!-- 3. LOKET BANK SAMPAH -->
+                    <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl md:rounded-2xl space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-amber-400 mb-2">
+                                <i class="fa-solid fa-recycle text-xs"></i>
+                                <h4 class="text-[11px] font-mono font-bold uppercase tracking-wide">3. Loket Bank Sampah</h4>
+                            </div>
+                            <input type="password" id="pass-sampah" inputmode="numeric" placeholder="Sandi Petugas (4321)" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs font-mono text-white focus:outline-none focus:border-amber-500 placeholder:text-slate-600">
+                        </div>
+                        <button onclick="verifikasiSandi('sampah')" class="w-full mt-3 bg-amber-600 hover:bg-amber-500 text-white text-xs font-mono font-bold py-2.5 rounded-xl transition-all active:scale-95">OTORISASI LOKET</button>
+                    </div>
+
+                    <!-- 4. LOKET MEDIS PUSKESMAS -->
+                    <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl md:rounded-2xl space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center gap-2 text-sky-400 mb-2">
+                                <i class="fa-solid fa-heart-pulse text-xs"></i>
+                                <h4 class="text-[11px] font-mono font-bold uppercase tracking-wide">4. Loket Puskesmas</h4>
+                            </div>
+                            <input type="password" id="pass-medis" inputmode="numeric" placeholder="Sandi Medis (8765)" class="w-full bg-slate-950 border border-slate-800 rounded-xl py-2 px-3 text-xs font-mono text-white focus:outline-none focus:border-sky-500 placeholder:text-slate-600">
+                        </div>
+                        <button onclick="verifikasiSandi('medis')" class="w-full mt-3 bg-sky-600 hover:bg-sky-500 text-white text-xs font-mono font-bold py-2.5 rounded-xl transition-all active:scale-95">OTORISASI MEDIS</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CONTAINER WORKSPACE DINAMIS -->
+            <div id="dynamic-workspace" class="space-y-4 animate-[fadeIn_0.2s_ease-out]"></div>
+        </div>
+
+        <!-- RIGHT SIDEBAR: ADAPTIVE LOG LOGGER (Auto pindah ke bawah kalau di HP) -->
+        <div class="space-y-4 md:space-y-6">
+            <section class="bg-slate-950 border border-slate-800 rounded-2xl md:rounded-3xl p-4 md:p-5 space-y-3 shadow-xl flex flex-col justify-between">
+                <div>
+                    <div class="border-b border-slate-800 pb-2">
+                        <h3 class="text-xs font-mono font-bold text-slate-400 flex items-center gap-2">
+                            <i class="fa-solid fa-clock-rotate-left text-rose-400"></i> LOG AUDIT SECURITY
+                        </h3>
+                        <p class="text-[10px] text-slate-500 mt-0.5">Riwayat aktivitas tersensor anonim demi keamanan.</p>
+                    </div>
+                    <div id="log-container" class="space-y-2 max-h-60 lg:max-h-[400px] overflow-y-auto pr-1 text-[11px] font-mono mt-3">
+                        <!-- Terisi otomatis -->
+                    </div>
+                </div>
+                <div class="pt-3 border-t border-slate-900 text-center">
+                    <span class="text-[9px] font-mono text-slate-600">CROSS-PLATFORM ENGINE ACTIVE</span>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- TOAST NOTIFICATION RESPONSIF -->
+    <div id="toast" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 transform translate-y-20 opacity-0 bg-slate-950 border border-slate-800 text-slate-200 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 sm:max-w-sm z-50">
+        <div id="toast-icon" class="shrink-0"></div>
+        <div class="min-w-0 flex-1">
+            <h4 id="toast-title" class="text-[10px] font-mono font-bold uppercase text-white truncate">Sistem</h4>
+            <p id="toast-message" class="text-xs text-slate-400 mt-0.5 break-words"></p>
+        </div>
+    </div>
+
+    <!-- ENGINE SYSTEM CODE -->
+    <script>
+        // CORE DATABASE INTERNAL (MUTLAK TERSEMBUNYI)
+        let SAMPATI_CENTRAL_CORE = [
+            { nik: "1234567890123456", nama: "SUPARMAN", saldoPoin: 200 },
+            { nik: "3273011212980002", nama: "NURHAYATI", saldoPoin: 75 },
+            { nik: "3171022405950001", nama: "JOKO SUSILO", saldoPoin: 0 }
+        ];
+
+        let JURNAL_LOG_SISTEM = [
+            { waktu: "12:00:00", asal: "SECURE", pesan: "Privasi Lapis 1 Aktif. Database diproteksi.", status: "INFO" }
+        ];
+
+        let currentSelectedWargaNik = "";
+
+        function catatAktivitasGlobal(asal, pesan, status) {
+            const waktu = new Date().toLocaleTimeString('id-ID', {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            JURNAL_LOG_SISTEM.unshift({ waktu, asal, pesan, status });
+            renderLogs();
+        }
+
+        function renderLogs() {
+            const container = document.getElementById('log-container');
+            container.innerHTML = JURNAL_LOG_SISTEM.map(log => {
+                let badgeColor = "text-indigo-400 bg-indigo-950/40";
+                if(log.status === 'SUKSES') badgeColor = "text-emerald-400 bg-emerald-950/40";
+                if(log.status === 'DEBET') badgeColor = "text-rose-400 bg-rose-950/40";
+                
+                return `
+                    <div class="p-2 bg-slate-900/50 rounded-xl border border-slate-850 flex flex-col gap-1">
+                        <div class="flex justify-between items-center text-[10px]">
+                            <span class="text-slate-500">[${log.waktu}] ${log.asal}</span>
+                            <span class="px-1.5 py-0.5 rounded text-[8px] font-bold ${badgeColor}">${log.status}</span>
+                        </div>
+                        <p class="text-slate-300 text-[10.5px] leading-relaxed">${log.pesan}</p>
+                    </div>`;
+            }).join('');
+        }
+
+        function verifikasiSandi(role) {
+            const passSampah = "4321";
+            const passMedis = "8765";
+            
+            if(role === 'sampah') {
+                if(document.getElementById('pass-sampah').value === passSampah) {
+                    document.getElementById('pass-sampah').value = '';
+                    bukaLoket('sampah');
+                } else { triggerToast('error', 'Akses Ditolak', 'Sandi Bank Sampah Salah!'); }
+            }
+            if(role === 'medis') {
+                if(document.getElementById('pass-medis').value === passMedis) {
+                    document.getElementById('pass-medis').value = '';
+                    bukaLoket('medis');
+                } else { triggerToast('error', 'Akses Ditolak', 'Sandi Puskesmas Salah!'); }
+            }
+        }
+
+        function bukaLoket(role) {
+            document.getElementById('hub-institusi').classList.add('hidden');
+            const btnLogout = document.getElementById('btn-logout');
+            btnLogout.classList.remove('hidden');
+            btnLogout.classList.add('flex');
+
+            const ws = document.getElementById('dynamic-workspace');
+
+            if(role === 'admin') {
+                ws.innerHTML = `
+                    <section class="bg-slate-950 border border-indigo-500/30 rounded-2xl p-4 md:p-5 space-y-4 shadow-xl">
+                        <h3 class="text-sm font-bold text-indigo-400 font-mono uppercase"><i class="fa-solid fa-plus-circle"></i> Registrasi Warga Baru</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="text-[10px] font-mono text-slate-400 block mb-1">16 DIGIT NIK KTP</label>
+                                <input type="text" id="reg-nik" inputmode="numeric" placeholder="Ketik NIK Baru..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs font-mono text-white focus:outline-none focus:border-indigo-500" maxlength="16">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-mono text-slate-400 block mb-1">NAMA LENGKAP</label>
+                                <input type="text" id="reg-nama" placeholder="Ketik nama sesuai KTP..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-indigo-500">
+                            </div>
+                            <button onclick="prosesRegistrasiSentral()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-mono font-bold py-3 rounded-xl text-xs transition-all active:scale-95">DAFTARKAN SECARA AMAN</button>
+                        </div>
+                    </section>`;
+            }
+            else if(role === 'warga') {
+                ws.innerHTML = `
+                    <section class="bg-slate-950 border border-emerald-500/30 rounded-2xl p-4 md:p-5 space-y-4 shadow-xl">
+                        <h3 class="text-sm font-bold text-emerald-400 font-mono uppercase"><i class="fa-solid fa-user"></i> Kios Cek Saldo Privat</h3>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="cek-nik" inputmode="numeric" placeholder="Ketik 16 Digit NIK Anda" class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs font-mono text-white focus:outline-none focus:border-emerald-500" maxlength="16">
+                            <button onclick="prosesCekSaldoWarga()" class="bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold py-3 sm:py-0 sm:px-5 rounded-xl text-xs transition-all active:scale-95">Periksa</button>
+                        </div>
+                        <div id="result-box-warga" class="hidden bg-slate-900 border border-slate-850 p-4 rounded-xl text-center space-y-2">
+                            <p class="text-xs text-slate-400">Pemilik Akun: <span id="res-nama" class="text-white font-bold font-mono"></span></p>
+                            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                                <h1 id="res-poin" class="text-xl md:text-2xl font-black font-mono text-emerald-400">0 POIN</h1>
+                                <p id="res-rp" class="text-[11px] text-slate-500 font-mono mt-0.5">Nilai Jaminan: Rp 0</p>
+                            </div>
+                        </div>
+                    </section>`;
+            }
+            else if(role === 'sampah') {
+                ws.innerHTML = `
+                    <section class="bg-slate-950 border border-amber-500/30 rounded-2xl p-4 md:p-5 space-y-4 shadow-xl">
+                        <h3 class="text-sm font-bold text-amber-400 font-mono uppercase"><i class="fa-solid fa-leaf"></i> Timbangan Bank Sampah</h3>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="sampah-nik" inputmode="numeric" placeholder="Ketik NIK Warga..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs font-mono text-white focus:outline-none focus:border-amber-500" maxlength="16">
+                            <button onclick="verifikasiNikUntukSampah()" class="bg-amber-600 hover:bg-amber-500 text-white font-mono font-bold py-3 sm:py-0 sm:px-5 rounded-xl text-xs transition-all active:scale-95">Verifikasi</button>
+                        </div>
+                        
+                        <div id="form-transaksi-sampah" class="hidden space-y-4 bg-slate-900 p-4 rounded-xl border border-slate-850">
+                            <p class="text-xs text-slate-400">Nasabah: <span id="nama-nasabah-sampah" class="text-white font-bold"></span></p>
+                            <div>
+                                <label class="text-[10px] font-mono text-slate-400 block mb-1">TOTAL NOMINAL SETORAN (RUPIAH)</label>
+                                <input type="number" id="harga-rupiah" inputmode="numeric" oninput="liveHitungPoinSampah()" placeholder="Contoh: 20000" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-xs text-white focus:outline-none focus:border-amber-500">
+                            </div>
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs font-mono">
+                                <span class="text-slate-400">Poin Masuk:</span>
+                                <span id="live-poin-sampah" class="text-amber-400 font-bold">0 Poin</span>
+                            </div>
+                            <button onclick="eksekusiTambahPoinSampah()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono font-bold py-3 rounded-xl text-xs transition-all active:scale-95">INJEKSI POIN SEKARANG</button>
+                        </div>
+                    </section>`;
+            }
+            else if(role === 'medis') {
+                ws.innerHTML = `
+                    <section class="bg-slate-950 border border-sky-500/30 rounded-2xl p-4 md:p-5 space-y-4 shadow-xl">
+                        <h3 class="text-sm font-bold text-sky-400 font-mono uppercase"><i class="fa-solid fa-stethoscope"></i> Kasir Klaim Obat Puskesmas</h3>
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <input type="text" id="medis-nik" inputmode="numeric" placeholder="Ketik NIK Pasien..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-3 text-xs font-mono text-white focus:outline-none focus:border-sky-500" maxlength="16">
+                            <button onclick="verifikasiNikUntukMedis()" class="bg-sky-600 hover:bg-sky-500 text-white font-mono font-bold py-3 sm:py-0 sm:px-5 rounded-xl text-xs transition-all active:scale-95">Muat Profil</button>
+                        </div>
+
+                        <div id="form-transaksi-medis" class="hidden space-y-4 bg-slate-900 p-4 rounded-xl border border-slate-850">
+                            <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono space-y-1">
+                                <p class="text-slate-400">Nama Pasien: <span id="nama-pasien-medis" class="text-white font-bold"></span></p>
+                                <p class="text-sky-400">Saldo Poin: <span id="saldo-poin-medis" class="font-bold">0 Poin</span></p>
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-mono text-slate-400 block mb-1">TOTAL BIAYA PENGOBATAN (RUPIAH)</label>
+                                <input type="number" id="biaya-medis-rp" inputmode="numeric" placeholder="Contoh: 7000" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 font-mono text-xs text-white focus:outline-none focus:border-sky-500">
+                            </div>
+                            <button onclick="eksekusiPotongPoinMedis()" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-mono font-bold py-3 rounded-xl text-xs transition-all active:scale-95">POTONG SALDO POIN</button>
+                        </div>
+                    </section>`;
+            }
+        }
+
+        function kembaliKeHubPusat() {
+            document.getElementById('dynamic-workspace').innerHTML = '';
+            document.getElementById('hub-institusi').classList.remove('hidden');
+            const btnLogout = document.getElementById('btn-logout');
+            btnLogout.classList.add('hidden');
+            btnLogout.classList.remove('flex');
+            currentSelectedWargaNik = "";
+        }
+
+        function prosesRegistrasiSentral() {
+            const nik = document.getElementById('reg-nik').value.trim();
+            const nama = document.getElementById('reg-nama').value.trim().toUpperCase();
+
+            if(!/^[0-9]{16}$/.test(nik)) return triggerToast('error', 'Format Error', 'NIK harus berupa 16 digit angka.');
+            if(!nama) return triggerToast('error', 'Validation Error', 'Nama tidak boleh kosong.');
+
+            if(SAMPATI_CENTRAL_CORE.some(w => w.nik === nik)) {
+                return triggerToast('error', 'Duplikasi Data', 'NIK tersebut sudah terdaftar.');
+            }
+
+            SAMPATI_CENTRAL_CORE.push({ nik, nama, saldoPoin: 0 });
+            catatAktivitasGlobal("ADMIN", `Anggota baru berinisial [${nama}] aman di database.`, "SUKSES");
+            triggerToast('success', 'Berhasil Disimpan', 'Data warga terintegrasi dalam mode rahasia.');
+            kembaliKeHubPusat();
+        }
+
+        function prosesCekSaldoWarga() {
+            const nik = document.getElementById('cek-nik').value.trim();
+            const warga = SAMPATI_CENTRAL_CORE.find(w => w.nik === nik);
+
+            if(!warga) return triggerToast('error', 'Data Nihil', 'NIK tidak dikenali di database pusat.');
+
+            document.getElementById('res-nama').innerText = warga.nama;
+            document.getElementById('res-poin').innerText = `${warga.saldoPoin} POIN`;
+            document.getElementById('res-rp').innerText = `Setara: Rp ${(warga.saldoPoin * 100).toLocaleString('id-ID')}`;
+            document.getElementById('result-box-warga').classList.remove('hidden');
+            catatAktivitasGlobal("KIOS WARGA", "Seseorang mengecek saldo secara privat.", "INFO");
+        }
+
+        function verifikasiNikUntukSampah() {
+            const nik = document.getElementById('sampah-nik').value.trim();
+            const warga = SAMPATI_CENTRAL_CORE.find(w => w.nik === nik);
+
+            if(!warga) {
+                document.getElementById('form-transaksi-sampah').classList.add('hidden');
+                return triggerToast('error', 'Tidak Ditemukan', 'Data NIK tidak ada di database.');
+            }
+
+            currentSelectedWargaNik = nik;
+            document.getElementById('nama-nasabah-sampah').innerText = warga.nama;
+            document.getElementById('form-transaksi-sampah').classList.remove('hidden');
+        }
+
+        function liveHitungPoinSampah() {
+            const rupiah = parseFloat(document.getElementById('harga-rupiah').value) || 0;
+            document.getElementById('live-poin-sampah').innerText = `${rupiah / 100} Poin`;
+        }
+
+        function eksekusiTambahPoinSampah() {
+            const rupiah = parseFloat(document.getElementById('harga-rupiah').value) || 0;
+            const tambahanPoin = rupiah / 100;
+
+            if(tambahanPoin <= 0) return triggerToast('error', 'Nominal Invalid', 'Nilai harus di atas Rp 0.');
+
+            const warga = SAMPATI_CENTRAL_CORE.find(w => w.nik === currentSelectedWargaNik);
+            if(warga) {
+                warga.saldoPoin += tambahanPoin;
+                catatAktivitasGlobal("BANK SAMPAH", `Suntik +${tambahanPoin} Poin ke akun ${warga.nama}`, "SUKSES");
+                triggerToast('success', 'Poin Terkirim', 'Saldo berhasil di-update secara rahasia.');
+                kembaliKeHubPusat();
+            }
+        }
+
+        function verifikasiNikUntukMedis() {
+            const nik = document.getElementById('medis-nik').value.trim();
+            const warga = SAMPATI_CENTRAL_CORE.find(w => w.nik === nik);
+
+            if(!warga) {
+                document.getElementById('form-transaksi-medis').classList.add('hidden');
+                return triggerToast('error', 'Tidak Ditemukan', 'Pasien tidak terdaftar.');
+            }
+
+            currentSelectedWargaNik = nik;
+            document.getElementById('nama-pasien-medis').innerText = warga.nama;
+            document.getElementById('saldo-poin-medis').innerText = `${warga.saldoPoin} Poin (Setara Rp ${warga.saldoPoin * 100})`;
+            document.getElementById('form-transaksi-medis').classList.remove('hidden');
+        }
+
+        function eksekusiPotongPoinMedis() {
+            const biayaRp = parseFloat(document.getElementById('biaya-medis-rp').value) || 0;
+            const poinDibutuhkan = biayaRp / 100;
+
+            if(biayaRp <= 0) return triggerToast('error', 'Nominal Salah', 'Masukkan nilai tagihan medis.');
+
+            const warga = SAMPATI_CENTRAL_CORE.find(w => w.nik === currentSelectedWargaNik);
+            if(warga) {
+                if(warga.saldoPoin < poinDibutuhkan) {
+                    catatAktivitasGlobal("PUSKESMAS", `Klaim obat ${warga.nama} ditolak (Poin Kurang).`, "GAGAL");
+                    return triggerToast('error', 'Poin Tidak Cukup', 'Saldo poin warga ini tidak mencukupi.');
+                }
+
+                warga.saldoPoin -= poinDibutuhkan;
+                catatAktivitasGlobal("PUSKESMAS", `Potong -${poinDibutuhkan} Poin milik ${warga.nama}`, "DEBET");
+                triggerToast('success', 'Debet Sukses', 'Subsidi obat berhasil diproses.');
+                kembaliKeHubPusat();
+            }
+        }
+
+        function triggerToast(type, title, message) {
+            const toast = document.getElementById('toast');
+            const icon = document.getElementById('toast-icon');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+            
+            icon.className = type === 'success' ? "p-2 rounded-xl text-xs bg-emerald-500/10 text-emerald-400" : "p-2 rounded-xl text-xs bg-rose-500/10 text-rose-400";
+            icon.innerHTML = type === 'success' ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-solid fa-triangle-exclamation"></i>';
+            
+            toast.className = "fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 transform translate-y-0 opacity-100 bg-slate-950 border border-slate-800 text-slate-200 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 sm:max-w-sm z-50";
+            setTimeout(() => {
+                toast.className = "fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 transform translate-y-20 opacity-0 bg-slate-950 border border-slate-800 text-slate-200 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 transition-all duration-300 sm:max-w-sm z-50";
+            }, 4000);
+        }
+
+        renderLogs();
+    </script>
+</body>
+</html>
